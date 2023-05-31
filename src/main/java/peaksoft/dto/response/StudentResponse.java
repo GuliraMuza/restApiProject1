@@ -10,5 +10,6 @@ public record StudentResponse(
         String lastName,
         String phoneNumber,
         String email,
-        StudyFormat studyFormat) {
+        StudyFormat studyFormat,
+        Boolean isBlocked) {
 }

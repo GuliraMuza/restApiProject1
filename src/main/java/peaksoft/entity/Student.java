@@ -25,6 +25,7 @@ public class Student {
     private String phoneNumber;
     private String email;
     private StudyFormat studyFormat;
+    private Boolean isBlocked;
 
     @ManyToOne(cascade = {DETACH,REFRESH,MERGE})
     private Group group;
