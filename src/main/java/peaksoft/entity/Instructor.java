@@ -30,6 +30,6 @@ public class Instructor {
     @ManyToMany(mappedBy = "instructors",cascade = {MERGE,DETACH,REFRESH},fetch = FetchType.EAGER)
     private List<Company>companies = new ArrayList<>();
 
-    @ManyToOne
-    private Course course;
+    @OneToMany(mappedBy = "instructor",cascade = {MERGE,DETACH,REFRESH,PERSIST})
+    private List<Course> courses;
 }

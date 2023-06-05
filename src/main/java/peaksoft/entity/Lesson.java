@@ -23,6 +23,7 @@ public class Lesson {
     @SequenceGenerator(name = "lesson_gen", sequenceName = "lesson_seq", allocationSize = 1)
     private Long id;
     private String lessonName;
+    private String description;
 
     @ManyToOne(cascade = {DETACH,REFRESH,MERGE})
     private Course course;

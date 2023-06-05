@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.stereotype.Controller;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,6 +21,7 @@ public class Company {
     @GeneratedValue(strategy = GenerationType.SEQUENCE,generator = "company_gen")
     @SequenceGenerator(name = "company_gen",sequenceName = "company_seq",allocationSize = 1)
     private Long id;
+    @Column(unique = true)
     private String name;
     private String country;
     private String address;

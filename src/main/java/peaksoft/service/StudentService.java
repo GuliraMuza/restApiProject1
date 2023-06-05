@@ -14,5 +14,13 @@ public interface StudentService {
     StudentResponse updateStudent(Long studentId, StudentRequest studentRequest);
     SimpleResponse deleteStudent(Long studentId);
     SimpleResponse assignStudentsToGroup(Long studentId,Long groupId);
-    List<StudentResponse> filterStudentsByStudyFormat(StudyFormat studyFormat);
+
+    List<StudentResponse>getStudentsByIsBlockedOrNot(Boolean isBlocked);
+
+
+    List<StudentResponse>filterStudents(StudyFormat studyFormat);
+
+    SimpleResponse  isBlockedUnBlockStudents(Long studentId, Boolean block);
+
+  //  SimpleResponse filterStudentsOfflineOrOnline(Long studentId, StudyFormat studyFormat);
 }

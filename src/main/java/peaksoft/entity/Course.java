@@ -29,10 +29,10 @@ public class Course {
     @ManyToOne(cascade = {DETACH,MERGE,REFRESH,PERSIST})
     private Company company;
 
-    @OneToMany(mappedBy = "course",cascade = {DETACH,REFRESH,MERGE})
-    private List<Instructor> instructors = new ArrayList<>();
+    @ManyToOne(cascade = {DETACH,REFRESH,MERGE,REMOVE})
+    private Instructor instructor ;
 
-    @ManyToMany(cascade = {REFRESH,DETACH,MERGE})
+    @ManyToMany(cascade = {REFRESH,DETACH,MERGE,PERSIST,REMOVE})
     private List<Group> groups = new ArrayList<>();
 
     @OneToMany(mappedBy = "course",cascade = {REFRESH,DETACH,MERGE,REMOVE})

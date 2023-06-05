@@ -7,13 +7,13 @@ import peaksoft.dto.response.simple.SimpleResponse;
 import java.util.List;
 
 public interface GroupService {
-    GroupResponse save(GroupRequest groupRequest, List<Long> courseIdes);
-    GroupResponse getAllGroups();
+
+
+    GroupResponse saveGroup(Long courseId, GroupRequest groupRequest);
+
+    List<GroupResponse> getAllGroups();
     GroupResponse getGroupById(Long groupId);
     GroupResponse updateGroup(Long groupId, GroupRequest groupRequest);
     SimpleResponse deleteGroup(Long groupId);
-
-
-
 
 }

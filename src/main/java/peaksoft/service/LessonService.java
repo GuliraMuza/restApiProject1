@@ -7,7 +7,7 @@ import peaksoft.dto.response.simple.SimpleResponse;
 import java.util.List;
 
 public interface LessonService {
-    LessonResponse save(LessonRequest lessonRequest,Long courseId);
+    LessonResponse saveLesson(LessonRequest lessonRequest,Long courseId);
     List<LessonResponse> getAllLessons();
     LessonResponse getLessonById(Long lessonId);
     LessonResponse updateLesson(Long lessonId, LessonRequest lessonRequest);

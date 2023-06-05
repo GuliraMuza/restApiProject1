@@ -1,6 +1,7 @@
 package peaksoft.entity;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Email;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -23,7 +24,9 @@ public class Student {
     private String firsName;
     private String lastName;
     private String phoneNumber;
+    @Email
     private String email;
+    @Enumerated(EnumType.STRING)
     private StudyFormat studyFormat;
     private Boolean isBlocked;
 
