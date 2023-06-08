@@ -116,6 +116,8 @@ public class InstructorServiceImpl implements InstructorService {
     @Override
     public InstructorRe infoInstructor(Long instructorId) {
         InstructorResponse i = instructorRepository.getInstructorById(instructorId).orElseThrow(()->new NotFoundException("Company with id:" + instructorId + "is not found"));
+        if (instructorId!=null && instructorId.equals(i.id())){
+
         return InstructorRe.builder()
                 .id(i.id())
                 .firstName(i.firstName())
@@ -124,7 +126,9 @@ public class InstructorServiceImpl implements InstructorService {
                 .phoneNumber(i.phoneNumber())
                 .groupName(instructorRepository.getAllGroupName(instructorId))
                 .studentCount(instructorRepository.getAllStudentSize(instructorId)).build();
+        }
 
+        return null;
     }
 
 

@@ -27,7 +27,7 @@ public class Instructor {
     private String phoneNumber;
     private  String specialization;
 
-    @ManyToMany(mappedBy = "instructors",cascade = {MERGE,DETACH,REFRESH},fetch = FetchType.EAGER)
+    @ManyToMany(mappedBy = "instructors",cascade = {MERGE,DETACH,REFRESH,PERSIST},fetch = FetchType.EAGER)
     private List<Company>companies = new ArrayList<>();
 
     @OneToMany(mappedBy = "instructor",cascade = {MERGE,DETACH,REFRESH,PERSIST})

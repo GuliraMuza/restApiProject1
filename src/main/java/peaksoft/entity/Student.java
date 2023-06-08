@@ -2,6 +2,7 @@ package peaksoft.entity;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotEmpty;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -24,6 +25,9 @@ public class Student {
     private String firsName;
     private String lastName;
     private String phoneNumber;
+    @NotEmpty(message = "Email should not be empty")
+    @Email(message = "email should be valid")
+    @Column(name = "email",unique = true)
     @Email
     private String email;
     @Enumerated(EnumType.STRING)

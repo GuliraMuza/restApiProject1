@@ -23,4 +23,7 @@ public interface StudentRepository extends JpaRepository<Student,Long> {
 
 
     List<StudentResponse>findByStudyFormat(StudyFormat studyFormat);
+
+
+    boolean existsByFirsName(String name);
 }

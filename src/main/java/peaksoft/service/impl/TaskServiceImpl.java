@@ -28,7 +28,7 @@ public class TaskServiceImpl implements TaskService {
             Task task1 = new Task();
             task1.setTaskName(taskRequest.getTaskName());
             task1.setTaskText(taskRequest.getTaskText());
-            task1.setDeadLine(LocalDate.now());
+            task1.setDeadLine(taskRequest.getDeadLine());
             task1.setLesson(lesson);
             lesson.getTasks().add(task1);
             taskRepository.save(task1);

@@ -1,21 +1,23 @@
 package peaksoft.service.impl;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import peaksoft.dto.request.LessonRequest;
 import peaksoft.dto.response.LessonResponse;
 import peaksoft.dto.response.simple.SimpleResponse;
 import peaksoft.entity.Course;
 import peaksoft.entity.Lesson;
+import peaksoft.exception.NotFoundException;
 import peaksoft.repository.CourseRepository;
 import peaksoft.repository.LessonRepository;
 import peaksoft.service.LessonService;
-
 import java.util.List;
 import java.util.NoSuchElementException;
 
 @Service
 @RequiredArgsConstructor
+//@Slf4j // логирование только бэкке керек  Simple Logging  Facade  for Java
 public class LessonServiceImpl implements LessonService {
     private final LessonRepository lessonRepository;
     private final CourseRepository courseRepository;
@@ -48,7 +50,11 @@ public class LessonServiceImpl implements LessonService {
 
     @Override
     public LessonResponse getLessonById(Long lessonId) {
-        return lessonRepository.getLessonById(lessonId).orElseThrow(() -> new RuntimeException("Lesson with id: " + lessonId + " not found!"));
+
+        return lessonRepository.getLessonById(lessonId).orElseThrow(() ->{
+           // log.error("Lesson doesn't exist");
+        throw  new NotFoundException("Lesson with id: " + lessonId + " not found!");
+        });
 
     }
 
@@ -57,6 +63,7 @@ public class LessonServiceImpl implements LessonService {
         Lesson lesson=lessonRepository.findById(lessonId).orElseThrow(() -> new RuntimeException("Course with id: " + lessonId + "not found!"));
         lesson.setLessonName(lessonRequest.getLessonName());
         lesson.setDescription(lessonRequest.getDescription());
+       // log.info("Updated");
         lessonRepository.save(lesson);
         return LessonResponse.builder()
                 .id(lesson.getId())
@@ -69,7 +76,7 @@ public class LessonServiceImpl implements LessonService {
     public SimpleResponse deleteLesson(Long lessonId) {
         try {
             Lesson lesson = lessonRepository.findById(lessonId)
-                    .orElseThrow(() -> new RuntimeException("Lesson with id: " + lessonId + " not found!"));
+                    .orElseThrow(() -> new NotFoundException("Lesson with id: " + lessonId + " not found!"));
             Course course = lesson.getCourse();
             if (course != null) {
                 course.getLessons().remove(course);

@@ -32,7 +32,7 @@ public class CourseServiceImpl implements CourseService {
                     .orElseThrow(() -> new NoSuchElementException("Company with id: " + companyId + " not found"));
             Course course = new Course();
             course.setCourseName(courseRequest.getCourseName());
-            course.setDateOfStart(LocalDate.now());
+            course.setDateOfStart(courseRequest.getDateOfStart());
             course.setDescription(courseRequest.getDescription());
             company.getCourses().add(course);
             course.setCompany(company);
@@ -85,11 +85,13 @@ public class CourseServiceImpl implements CourseService {
                 new NotFoundException("Course with id : " + courseId + " doesn't exist"));
         course.setCourseName(courseRequest.getCourseName());
         course.setDescription(courseRequest.getDescription());
+        course.setDateOfStart(courseRequest.getDateOfStart());
         courseRepository.save(course);
         return  CourseResponse.builder()
                 .id(course.getId())
                 .courseName(courseRequest.getCourseName())
                 .description(courseRequest.getDescription())
+                .dateOfStart(courseRequest.getDateOfStart())
                 .build();
 
 
@@ -99,7 +101,7 @@ public class CourseServiceImpl implements CourseService {
     public SimpleResponse deleteCourseById(Long courseId) {
         try {
             Course course = courseRepository.findById(courseId)
-                    .orElseThrow(() -> new RuntimeException("Course with id: " + courseId + " not found!"));
+                    .orElseThrow(() -> new NotFoundException("Course with id: " + courseId + " not found!"));
 
             Company company = course.getCompany();
             if (company != null) {

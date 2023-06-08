@@ -22,8 +22,17 @@ public class StudentServiceImpl implements StudentService {
     private final GroupRepository groupRepository;
 
 
+
+    /*  String email = request.getEmail();
+        if (userRepository.existsByEmail((email))) {
+            log.error("there is such a student with email :{}", email);
+            throw new BadRequestException(String.format("There is such a student with email = %s", email));
+        }*/
+
     @Override
     public StudentResponse save(StudentRequest studentRequest) {
+        String name=studentRequest.getFirsName();
+
         Student student = new Student();
         student.setFirsName(studentRequest.getFirsName());
         student.setLastName(studentRequest.getLastName());

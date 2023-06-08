@@ -15,7 +15,7 @@ import java.util.Optional;
 public interface CourseRepository extends JpaRepository<Course, Long> {
 
 
-    @Query("SELECT new peaksoft.dto.response.CourseResponse(c.id, c.courseName, c.description) FROM Course c")
+    @Query("SELECT new peaksoft.dto.response.CourseResponse(c.id, c.courseName,c.dateOfStart, c.description) FROM Course c")
     List<CourseResponse> getAllCourses();
 
 
@@ -28,9 +28,9 @@ public interface CourseRepository extends JpaRepository<Course, Long> {
     void updateCourse(@Param("id") Long id, @Param("name") String name, @Param("description") String description);
 
 
-    @Query("select new peaksoft.dto.response.CourseResponse (c.id,c.courseName,c.description)from Course c order by c.dateOfStart asc ")
+    @Query("select new peaksoft.dto.response.CourseResponse (c.id,c.courseName,c.dateOfStart, c.description)from Course c order by c.dateOfStart asc ")
     List<CourseResponse> sortByCourseDateOfStartAsc();
-    @Query("select new peaksoft.dto.response.CourseResponse(c.id,c.courseName,c.description) from Course c order by c.dateOfStart desc")
+    @Query("select new peaksoft.dto.response.CourseResponse(c.id,c.courseName,c.dateOfStart,c.description) from Course c order by c.dateOfStart desc")
     List<CourseResponse> sortByCourseDateOfStartDesc();
 
 }

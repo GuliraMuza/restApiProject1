@@ -1,12 +1,14 @@
 package peaksoft.service.impl;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import peaksoft.dto.request.CompanyRequest;
 import peaksoft.dto.response.CompanyResponse;
 import peaksoft.dto.response.simple.CompanyRe;
 import peaksoft.dto.response.simple.SimpleResponse;
 import peaksoft.entity.Company;
+import peaksoft.exception.NotFoundException;
 import peaksoft.repository.CompanyRepository;
 import peaksoft.service.CompanyService;
 
@@ -15,6 +17,7 @@ import java.util.NoSuchElementException;
 
 @Service
 @RequiredArgsConstructor
+@Slf4j
 public class CompanyServiceImpl implements CompanyService {
 
 
@@ -29,6 +32,7 @@ public class CompanyServiceImpl implements CompanyService {
         company.setAddress(companyRequest.getAddress());
         company.setPhoneNumber(companyRequest.getPhoneNumber());
         companyRepository.save(company);
+        log.info("New company successfully saved!");
         return  SimpleResponse.builder().status(200).message("Saved Company").build();
     }
 
@@ -41,7 +45,7 @@ public class CompanyServiceImpl implements CompanyService {
 
     @Override
     public CompanyResponse getCompanyById(Long companyId) {
-        return companyRepository.getCompanyById(companyId) .orElseThrow(() -> new NoSuchElementException("Company with id:" + companyId + "is not found"));
+        return companyRepository.getCompanyById(companyId) .orElseThrow(() -> new NotFoundException("Company with id:" + companyId + "is not found"));
     }
 
 
@@ -72,19 +76,23 @@ public class CompanyServiceImpl implements CompanyService {
     @Override
     public CompanyRe infoCompany(Long companyId) {
         CompanyResponse c = companyRepository.getCompanyById(companyId).orElseThrow(() -> new NoSuchElementException("Company with id:" + companyId + "is not found"));
-        return CompanyRe.builder()
-                .id(c.getId())
-                .name(c.getName())
-                .address(c.getAddress())
-                .country(c.getCountry())
-                .phoneNumber(c.getPhoneNumber())
-                .courseName(companyRepository.getAllCourseName(companyId))
-                .groupName(companyRepository.getAllGroupName(companyId))
-                .studentCount(companyRepository.getAllStudentSize(companyId))
-                .instructorName(companyRepository.getAllInstructorName(companyId))
-                .build();
+        if (companyId!=null && companyId.equals(c.getId())) {
+
+            return CompanyRe.builder()
+                    .id(c.getId())
+                    .name(c.getName())
+                    .address(c.getAddress())
+                    .country(c.getCountry())
+                    .phoneNumber(c.getPhoneNumber())
+                    .courseName(companyRepository.getAllCourseName(companyId))
+                    .groupName(companyRepository.getAllGroupName(companyId))
+                    .studentCount(companyRepository.getAllStudentSize(companyId))
+                    .instructorName(companyRepository.getAllInstructorName(companyId))
+                    .build();
 
 
+        }
+        return null;
     }
 
 

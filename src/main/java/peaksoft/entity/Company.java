@@ -30,7 +30,7 @@ public class Company {
     @OneToMany(mappedBy = "company",cascade = {ALL},fetch = FetchType.EAGER)
     private List<Course> courses = new ArrayList<>();
 
-    @ManyToMany(cascade = {DETACH,REFRESH,MERGE,REMOVE})
+    @ManyToMany(cascade = {DETACH,REFRESH,MERGE,REMOVE,PERSIST})
     private List<Instructor> instructors = new ArrayList<>();
 }
 
